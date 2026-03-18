@@ -1,0 +1,5 @@
+animated-resume/
+├── index.html          # 主页面
+├── style.css           # 自定义样式
+├── script.js           # 动画和交互逻辑
+└── README.md           # 部署说明
