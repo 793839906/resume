@@ -1,0 +1,101 @@
+// 导航栏滚动效果
+const navbar = document.getElementById('navbar');
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', function() {
+    // 导航栏样式变化
+    if (window.scrollY > 50) {
+        navbar.classList.add('py-2', 'shadow-md');
+        navbar.classList.remove('py-3');
+        backToTop.classList.remove('opacity-0', 'invisible');
+        backToTop.classList.add('opacity-100', 'visible');
+    } else {
+        navbar.classList.remove('py-2', 'shadow-md');
+        navbar.classList.add('py-3');
+        backToTop.classList.add('opacity-0', 'invisible');
+        backToTop.classList.remove('opacity-100', 'visible');
+    }
+
+    // 滚动动画
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    animateElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementBottom = element.getBoundingClientRect().bottom;
+        
+        if (elementTop < window.innerHeight - 100 && elementBottom > 0) {
+            element.classList.add('visible');
+        }
+    });
+
+    // 进度条动画
+    const progressBars = document.querySelectorAll('.animate-progress');
+    progressBars.forEach(bar => {
+        const barTop = bar.getBoundingClientRect().top;
+        if (barTop < window.innerHeight - 100) {
+            bar.style.setProperty('--width', bar.style.width);
+        }
+    });
+});
+
+// 移动端菜单
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuBtn.addEventListener('click', function() {
+    mobileMenu.classList.toggle('hidden');
+    const icon = menuBtn.querySelector('i');
+    if (mobileMenu.classList.contains('hidden')) {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    } else {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    }
+});
+
+// 点击导航链接关闭移动端菜单
+const navLinks = document.querySelectorAll('.nav-link');
+navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            const icon = menuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+});
+
+// 返回顶部按钮
+backToTop.addEventListener('click', function() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// 表单提交处理
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // 获取表单数据
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        
+        // 简单验证
+        if (!name || !email || !message) {
+            alert('请填写所有必填字段');
+            return;
+        }
+        
+        // 模拟提交成功
+        alert('消息发送成功！我会尽快回复您。');
+        contactForm.reset();
+    });
+}
+
+// 初始触发一次滚动事件，显示首屏动画
+window.dispatchEvent(new Event('scroll'));
