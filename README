@@ -1,5 +1,8 @@
 animated-resume/
 ├── index.html          # 主页面
+├── ├── tupian/          # 专门存放图片的文件夹（必须建，方便管理）
+│   ├── 001.png     # 示例图片1
+│   └── 002.png   # 示例图片2
 ├── style.css           # 自定义样式
 ├── script.js           # 动画和交互逻辑
 └── README.md           # 部署说明
